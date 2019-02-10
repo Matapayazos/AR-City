@@ -1,0 +1,41 @@
+Configuración de DataSources
+============================
+
+1. Copiar las librerias JDBC como modulos del jboss.  Copiar el contenido del 
+   comprimido modules.zip, dentro de la carpeta modules de su JBOSS_HOME
+
+2. Agregar en la seccion <drivers>....</drivers> del standalone.xml, la 
+   definición según corresponda
+
+	<driver name="oracle-driver" module="com.oracle">
+		<driver-class>oracle.jdbc.OracleDriver</driver-class>
+	</driver>
+	<driver name="postgresql-driver" module="org.postgresql">
+		<driver-class>org.postgresql.Driver</driver-class>
+	</driver>
+
+3. Definir en el archivo standalone.xml, el datasources acorde a su base de datos:  
+	Ejemplo: Oracle
+
+		<datasource jndi-name="java:jboss/datasources/ejOracleDS" pool-name="ej-oracleDS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:oracle:thin:@localhost:1521/xe</connection-url>
+                    <driver>oracle-driver</driver>
+                    <security>
+                        <user-name>usuario</user-name>
+                        <password>clave</password>
+                    </security>
+                </datasource>
+
+
+	Ejemplo: Postgresql
+
+		<datasource jta="true" jndi-name="java:jboss/datasources/ejPostgresDS" pool-name="ejPostgresDS" enabled="true" use-java-context="true" use-ccm="true">
+                    <connection-url>jdbc:postgresql://localhost:5432/bdpostgres</connection-url>
+                    <driver>postgresql-driver</driver>
+                    <security>
+                        <user-name>usuario</user-name>
+                        <password>clave</password>
+                    </security>
+                </datasource>
+
+
